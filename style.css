@@ -1,0 +1,123 @@
+html {
+  box-sizing: border-box;
+  background: #ffc600;
+  font-family: 'helvetica neue';
+  font-size: 20px;
+  font-weight: 200;
+}
+
+body {
+  margin: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.panels {
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row; /* horizontal on desktop */
+}
+
+.panel {
+  background: #6B0F9C;
+  box-shadow: inset 0 0 0 5px rgba(255,255,255,0.1);
+  color: white;
+  text-align: center;
+  align-items: center;
+  transition:
+    font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+    flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+    background 0.2s;
+  font-size: 20px;
+  background-size: cover;
+  background-position: center;
+  flex: 1;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  min-height: 20vh; /* important for mobile stacking */
+}
+
+.panel1 { background-image:url(https://w.wallhaven.cc/full/yq/wallhaven-yqg6r7.jpg); }
+.panel2 { background-image:url(https://w.wallhaven.cc/full/ly/wallhaven-lywpjl.jpg); }
+.panel3 { background-image:url(https://w.wallhaven.cc/full/d8/wallhaven-d8e1oo.jpg); }
+.panel4 { background-image:url(https://w.wallhaven.cc/full/ly/wallhaven-lyk6m2.jpg); }
+.panel5 { background-image:url(https://w.wallhaven.cc/full/zp/wallhaven-zpoe6v.jpg); }
+
+/* Flex Items */
+.panel > * {
+  margin: 0;
+  width: 100%;
+  transition: transform 0.5s;
+  flex: 1 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Hide top/bottom text off-screen until open */
+.panel > *:first-child { transform: translateY(-100%); }
+.panel.open-active > *:first-child { transform: translateY(0); }
+.panel > *:last-child { transform: translateY(100%); }
+.panel.open-active > *:last-child { transform: translateY(0); }
+
+.panel p {
+  text-transform: uppercase;
+  font-family: 'Amatic SC', cursive;
+  text-shadow: 0 0 4px rgba(0,0,0,0.72), 0 0 14px rgba(0,0,0,0.45);
+  font-size: clamp(1rem, 2vw, 2em); /* fluid scaling */
+}
+
+.panel p:nth-child(2) {
+  font-size: clamp(1.5rem, 4vw, 4em);
+}
+
+.panel.open {
+  flex: 5;
+  font-size: clamp(24px, 4vw, 40px); /* fluid instead of fixed 40px */
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .panel p {
+    font-size: clamp(0.9rem, 2.5vw, 1.5em);
+  }
+
+  .panel p:nth-child(2) {
+    font-size: clamp(1.2rem, 4vw, 2.5em);
+  }
+}
+
+/* Mobile — stack vertically */
+@media (max-width: 600px) {
+  .panels {
+    flex-direction: column;
+  }
+
+  .panel {
+    min-height: 20vh;
+    font-size: 16px;
+  }
+
+  .panel.open {
+    flex: 5;
+    font-size: 24px;
+  }
+
+  .panel p {
+    font-size: 1em;
+  }
+
+  .panel p:nth-child(2) {
+    font-size: 1.75em;
+  }
+
+  /* Slide in from sides on mobile instead of top/bottom */
+  .panel > *:first-child { transform: translateX(-100%); }
+  .panel.open-active > *:first-child { transform: translateX(0); }
+  .panel > *:last-child { transform: translateX(100%); }
+  .panel.open-active > *:last-child { transform: translateX(0); }
+}
